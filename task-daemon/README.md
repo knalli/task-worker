@@ -27,7 +27,7 @@ Just start it:
 java -jar target/task-worker-deamon.jar
 ```
 
-If you want to provide a custom properties file:
+If you want to provide a custom properties file (NYI):
 ```
 java -jar target/task-worker-deamon.jar -Ddeamon.config=configuration.properties
 ```
@@ -45,9 +45,9 @@ The service itself delegates the actual job to a dedicated task runner which dec
 
 In a nutshell:
 1. A new message (so called a new job task) will be recieved by Spring Integration via the AMQP gateway.
-1. The message will be transformed to an object and the module's service will be invoked.
-1. A task depending on the type of job will be created and started. It result will be returned.
-1. The result will be used as a reply message and sent back via AMPQ.
+2. The message will be transformed to an object and the module's service will be invoked.
+3. A task depending on the type of job will be created and started. It result will be returned.
+4. The result will be used as a reply message and sent back via AMPQ.
 
 ## License
 Copyright (c) 2012 Jan Philipp

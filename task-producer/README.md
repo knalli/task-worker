@@ -23,11 +23,11 @@ First of all, this builds up a standard _context container_ in which are configu
 
 In a nutshell:
 1. Invoking the service lets Spring Integration create a new message onto the channel.
-1. The message on this channel will be send via the AMQP gateway right to RabbitMQ.
-1. When a corresponding reply message is available via AMQP, the result will be available.
+2. The message on this channel will be send via the AMQP gateway right to RabbitMQ.
+3. When a corresponding reply message is available via AMQP, the result will be available.
 
 ### Asynchronous Process
-Because the process is asynchronous the service method `TaskService.run` returns a `Future`. The examples shows how you can use timeouts.
+Because the process is asynchronous the service method `TaskService.run` returns a `Future`. The examples show how you can use timeouts via the Java API.
 
 ## License
 Copyright (c) 2012 Jan Philipp
