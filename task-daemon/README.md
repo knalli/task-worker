@@ -5,7 +5,7 @@
 The *Task Worker* is a _Spring Integration_ module usable for situations where the actual work should not be done in the "main" application.
 For example, a web application should not generate and render a huge pdf document itself because of performance issues with Java Heap and Java PermGen size issues.
 
-This is the *Task Worker Deamon* which works a simple worker slave. Depending on the Spring Integration setup, it is possible to run several worker deamons connected to the same queue.
+This is the *Task Worker Daemon* which works a simple worker slave. Depending on the Spring Integration setup, it is possible to run several worker deamons connected to the same queue.
 
 *Note:* Currently, the Spring Integration configuration supports only a RabbitMQ/AMPQ variant. Feel free to provide an alternative. This could be easily done with Spring profiles.
 
