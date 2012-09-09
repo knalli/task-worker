@@ -27,9 +27,20 @@ Just start it:
 java -jar target/task-worker-daemon.jar
 ```
 
-If you want to provide a custom properties file (NYI):
+If you want to provide a custom properties file:
 ```
-java -jar target/task-worker-daemon.jar -Ddaemon.config=configuration.properties
+java -jar target/task-worker-daemon.jar -Dconfig.file=configuration.properties
+```
+
+The default properties are:
+```properties
+# RabbitMQ defaults
+rabbitmq.host: localhost
+rabbitmq.port: 5672
+rabbitmq.username: guest
+rabbitmq.password: guest
+rabbitmq.queue: task.queue
+rabbitmq.virtualhost: /
 ```
 
 ## How It Works
