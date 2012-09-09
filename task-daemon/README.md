@@ -21,7 +21,7 @@ mvn package
 (Later, this will be step 1 of a personal build.)
 
 ### Run
-After the maven build is finished, you will found the artifact `target/task-worker-daemonjar`.
+After the maven build is finished, you will found the artifact `target/task-worker-daemon.jar`.
 Just start it:
 ```
 java -jar target/task-worker-daemon.jar
@@ -33,7 +33,7 @@ java -jar target/task-worker-daemon.jar -Ddaemon.config=configuration.properties
 ```
 
 ## How It Works
-This module uses the _Spring Framework 3.1_ and _Spring Integration 2.1_ for a own context and the communication with a message browker.
+This module uses the _Spring Framework 3.1_ and _Spring Integration 2.1_ for a context container and the communication with a message broker.
 
 First of all, this builds up a standard _context container_ in which are configured following beans:
 * a connection factory (currently RabbitMQ),
@@ -41,7 +41,11 @@ First of all, this builds up a standard _context container_ in which are configu
 * an AMQP inbound gateway which binds messages of the queue to a specific (Spring Integration) channel,
 * and finally a service activator which will be invoked for every incoming message.
 
-The service itself delegates the actual job to a dedicated task runner which decides _how_ the task will be done. Currently, there are only following tasks available: FopTaskImpl (FOP), ProcessTaskImpl (PROCESS) and PhantomJsTaskImpl (PHANTOMJS).
+The service itself delegates the actual job to a dedicated task runner which decides _how_ the task will be done.
+Currently, there are only following tasks available:
+1. FopTaskImpl (FOP)
+2. ProcessTaskImpl (PROCESS) and
+3. PhantomJsTaskImpl (PHANTOMJS).
 
 In a nutshell:
 1. A new message (so called a new job task) will be recieved by Spring Integration via the AMQP gateway.
