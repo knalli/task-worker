@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Task-worker by knalli</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Task-worker</h1>
+        <p>a dedicated task runner solution with Spring Integrations.</p>
+
+        <p class="view"><a href="https://github.com/knalli/task-worker">View the Project on GitHub <small>knalli/task-worker</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/knalli/task-worker/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/knalli/task-worker/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/knalli/task-worker">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>Task Worker for Spring <a href="http://travis-ci.org/knalli/task-worker"><img src="https://secure.travis-ci.org/knalli/task-worker.png?branch=master" alt="Build Status"></a>
+</h1>
+
+<p>The <em>Task Worker</em> is a <em>Spring Integration</em> module usable for situations where the actual work should not be done in the "main" application.
+For example, a web application should not generate and render a huge pdf document itself because of performance issues with Java Heap and Java PermGen size issues.</p>
+
+<p><em>Note:</em> Currently, the Spring Integration configuration supports only a RabbitMQ/AMPQ variant. Feel free to provide an alternative. This could be easily done with Spring profiles.</p>
+
+<h2>Getting Started</h2>
+
+<p>The project is split into two single ones: The <a href="task-worker/tree/master/task-daemon">daemon</a> and the <a href="task-worker/tree/master/task-producer">producer</a>.</p>
+
+<h2>License</h2>
+
+<p>Copyright (c) 2012 Jan Philipp
+Licensed under the MIT licenses.</p>
+
+<h2>Contributing</h2>
+
+<p>In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/knalli">knalli</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-33240227-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
