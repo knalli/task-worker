@@ -14,6 +14,8 @@
     <rabbit:connection-factory id="connectionFactory" channel-cache-size="10"/>
     <rabbit:admin connection-factory="connectionFactory"/>
     <rabbit:queue name="task.queue"/>
+    <context:property-placeholder ignore-resource-not-found="true"
+                                  location="classpath*:config.properties,file:${config.file}"/>
 
     <int:channel id="taskRequestChannel"/>
     <int:channel id="taskRequestChannelJson"/>
