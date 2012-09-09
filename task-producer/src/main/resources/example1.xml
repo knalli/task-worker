@@ -1,0 +1,10 @@
+<xml>
+    <users>
+        <user>
+            <name>Max Mustermann</name>
+        </user>
+        <user>
+            <name>John Doe</name>
+        </user>
+    </users>
+</xml>

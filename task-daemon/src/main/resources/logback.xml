@@ -1,0 +1,135 @@
+<configuration debug="true" scan="true">
+
+    <contextName>task-daemon</contextName>
+
+    <!-- read by resource (in classpath) -->
+    <property resource="application.properties"/>
+
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-30(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{32} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <if condition='!property("profile").equals("DEVELOPMENT")'>
+        <then>
+            <appender name="FILE_ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${global.home}/var/log/task-worker-all.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <!-- daily rollover -->
+                    <fileNamePattern>task-worker-all.%d{yyyy-MM-dd}.log</fileNamePattern>
+                    <!-- keep 90 days' worth of history -->
+                    <maxHistory>90</maxHistory>
+                </rollingPolicy>
+                <layout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>%-4relative [%thread] %-5level %class - %msg%n</pattern>
+                </layout>
+            </appender>
+
+            <appender name="FILE_SPRING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${global.home}/var/log/task-worker-spring-all.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <!-- daily rollover -->
+                    <fileNamePattern>task-worker-spring-all.%d{yyyy-MM-dd}.log</fileNamePattern>
+                    <!-- keep 90 days' worth of history -->
+                    <maxHistory>90</maxHistory>
+                </rollingPolicy>
+                <layout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>%-4relative [%thread] %-5level %class - %msg%n</pattern>
+                </layout>
+            </appender>
+
+            <appender name="FILE_SPRING_INT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${global.home}/var/log/task-worker-spring-integration.log</file>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <!-- daily rollover -->
+                    <fileNamePattern>task-worker-spring-integration.%d{yyyy-MM-dd}.log</fileNamePattern>
+                    <!-- keep 90 days' worth of history -->
+                    <maxHistory>90</maxHistory>
+                </rollingPolicy>
+                <layout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>%-4relative [%thread] %-5level %class - %msg%n</pattern>
+                </layout>
+            </appender>
+
+            <appender name="FILE_HTML_ERROR" class="ch.qos.logback.core.FileAppender">
+                <file>${global.home}/var/log/task-worker-application_error.html</file>
+                <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+                    <layout class="ch.qos.logback.classic.html.HTMLLayout">
+                        <pattern>%relative%thread%mdc%level%logger%msg</pattern>
+                    </layout>
+                </encoder>
+            </appender>
+        </then>
+    </if>
+
+    <if condition='property("profile").equals("DEVELOPMENT")'>
+        <then>
+            <logger name="de.knallisworld.spring.worker" level="debug" additivity="false">
+                <appender-ref ref="CONSOLE"/>
+            </logger>
+            <logger name="de.knallisworld.spring.worker" level="info"></logger>
+        </then>
+        <else>
+            <logger name="de.knallisworld.spring.worker" level="warn" additivity="false">
+                <appender-ref ref="FILE_ALL"/>
+            </logger>
+        </else>
+    </if>
+
+    <!-- Spring (core, web, ...) -->
+    <if condition='property("profile").equals("DEVELOPMENT")'>
+        <then>
+            <logger name="org.springframework" level="warn" additivity="false">
+                <appender-ref ref="CONSOLE"/>
+            </logger>
+        </then>
+        <else>
+            <logger name="org.springframework" level="warn" additivity="false">
+                <appender-ref ref="FILE_ALL"/>
+                <appender-ref ref="FILE_SPRING"/>
+            </logger>
+        </else>
+    </if>
+
+    <!-- Spring Integration -->
+    <if condition='property("profile").equals("DEVELOPMENT")'>
+        <then>
+            <logger name="org.springframework.integration" level="warn" additivity="false">
+                <appender-ref ref="CONSOLE"/>
+            </logger>
+            <logger name="org.springframework.integration.endpoint.PollingConsumer" level="warn"></logger>
+        </then>
+        <else>
+            <logger name="org.springframework.integration" level="warn" additivity="false">
+                <appender-ref ref="FILE_SPRING_INT"/>
+            </logger>
+            <logger name="org.springframework.integration.endpoint.PollingConsumer" level="warn"></logger>
+        </else>
+    </if>
+
+    <!-- Apache FOP (PDF) -->
+    <logger name="org.apache.fop" level="debug"></logger>
+    <!-- Supress initial setup messages -->
+    <logger name="org.apache.fop.render" level="warn"/>
+    <logger name="org.apache.xmlgraphics.image.loader.spi.ImageImplRegistry" level="warn"/>
+    <logger name="org.apache.fop.util.ContentHandlerFactoryRegistry" level="warn"/>
+
+    <!-- the root of all evil -->
+    <if condition='property("profile").equals("DEVELOPMENT")'>
+        <then>
+            <!-- Developer machine -->
+            <root level="INFO">
+                <appender-ref ref="CONSOLE"/>
+            </root>
+        </then>
+        <else>
+            <!-- Production -->
+            <root level="INFO">
+                <appender-ref ref="FILE_ALL"/>
+            </root>
+        </else>
+    </if>
+</configuration>

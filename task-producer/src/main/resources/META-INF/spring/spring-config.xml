@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+       xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd     http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/amqp http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-2.0.xsd">
+
+    <int:annotation-config/>
+
+    <rabbit:connection-factory id="connectionFactory" channel-cache-size="10"/>
+    <rabbit:admin connection-factory="connectionFactory"/>
+    <rabbit:queue name="task.queue"/>
+
+    <int:channel id="taskRequestChannel"/>
+    <int:channel id="taskRequestChannelJson"/>
+
+    <int:channel id="taskReplyChannel"/>
+    <int:channel id="taskReplyChannelJson"/>
+
+    <int:channel id="errorChannel"/>
+
+    <int:channel id="taskProcessingErrorChannel"/>
+    <int:transformer input-channel="taskProcessingErrorChannel" output-channel="errorChannel"
+                     expression="payload.getFailedMessage()"/>
+
+    <beans profile="debug">
+        <int:logging-channel-adapter id="logger" level="INFO" log-full-message="true"/>
+        <int:wire-tap channel="logger"
+                      pattern="taskRequestChannel,taskRequestChannelJson,taskReplyChannel,taskReplyChannelJson"/>
+
+        <int-stream:stderr-channel-adapter channel="errorChannel" append-newline="true"/>
+    </beans>
+
+    <beans>
+        <int:chain input-channel="taskRequestChannel" output-channel="taskRequestChannelJson">
+            <int:object-to-json-transformer/>
+        </int:chain>
+
+        <int:chain input-channel="taskReplyChannelJson" output-channel="taskReplyChannel">
+            <int:json-to-object-transformer type="de.knallisworld.spring.worker.mapping.Result"/>
+        </int:chain>
+
+        <!-- Service Interface -> Channel -->
+        <int:gateway service-interface="de.knallisworld.spring.worker.producer.TaskService"
+                     default-request-channel="taskRequestChannel" default-reply-channel="taskReplyChannel"
+                     error-channel="taskProcessingErrorChannel"/>
+
+        <!-- Channel -> Queue -->
+        <int-amqp:outbound-gateway request-channel="taskRequestChannelJson"
+                                   reply-channel="taskReplyChannelJson" routing-key="task.queue"/>
+
+        <bean id="amqpTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate">
+            <property name="connectionFactory" ref="connectionFactory"/>
+            <property name="queue" value="task.queue"/>
+        </bean>
+
+    </beans>
+
+</beans>

@@ -1,0 +1,4 @@
+.idea
+task-daemon/target
+task-producer/target
+*.iml

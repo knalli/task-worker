@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:int-amqp="http://www.springframework.org/schema/integration/amqp"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xmlns:int-stream="http://www.springframework.org/schema/integration/stream"
+       xmlns:beans="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd http://www.springframework.org/schema/integration/amqp http://www.springframework.org/schema/integration/amqp/spring-integration-amqp.xsd http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.0.xsd http://www.springframework.org/schema/integration/stream http://www.springframework.org/schema/integration/stream/spring-integration-stream-2.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <beans:annotation-config />
+    <int:annotation-config/>
+
+    <rabbit:connection-factory id="connectionFactory" channel-cache-size="10"/>
+    <rabbit:admin connection-factory="connectionFactory"/>
+    <rabbit:queue name="task.queue"/>
+
+    <int:channel id="taskRequestChannel"/>
+    <int:channel id="taskRequestChannelJson"/>
+    <int:channel id="taskReplyChannel"/>
+    <int:channel id="taskReplyChannelJson"/>
+    <int:channel id="errorChannel"/>
+
+    <beans profile="debug">
+        <int:logging-channel-adapter id="logger" level="INFO" log-full-message="true"/>
+        <int:wire-tap channel="logger"
+                      pattern="taskRequestChannel,taskRequestChannelJson,taskReplyChannel,taskReplyChannelJson"/>
+    </beans>
+
+    <beans>
+
+        <int:chain input-channel="taskRequestChannelJson" output-channel="taskRequestChannel">
+            <int:json-to-object-transformer type="de.knallisworld.spring.worker.mapping.Job"/>
+        </int:chain>
+
+        <int:chain input-channel="taskReplyChannel" output-channel="taskReplyChannelJson">
+            <int:object-to-json-transformer/>
+        </int:chain>
+
+        <int-amqp:inbound-gateway connection-factory="connectionFactory" request-channel="taskRequestChannelJson"
+                                  reply-channel="taskReplyChannelJson" error-channel="errorChannel"
+                                  queue-names="task.queue"/>
+
+        <int-stream:stderr-channel-adapter channel="errorChannel" append-newline="true"/>
+    </beans>
+
+</beans>
