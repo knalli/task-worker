@@ -1,5 +1,7 @@
 # Task Worker for Spring [![Build Status](https://secure.travis-ci.org/knalli/task-worker.png?branch=master)](http://travis-ci.org/knalli/task-worker)
 
+([../](back to home))
+
 The *Task Worker* is a _Spring Integration_ module usable for situations where the actual work should not be done in the "main" application.
 For example, a web application should not generate and render a huge pdf document itself because of performance issues with Java Heap and Java PermGen size issues.
 
@@ -20,9 +22,9 @@ First of all, this builds up a standard _context container_ in which are configu
 * and finally a service gateway which transforms each invocation into a message.
 
 In a nutshell:
-# Invoking the service lets Spring Integration create a new message onto the channel.
-# The message on this channel will be send via the AMQP gateway right to RabbitMQ.
-# When a corresponding reply message is available via AMQP, the result will be available.
+1. Invoking the service lets Spring Integration create a new message onto the channel.
+1. The message on this channel will be send via the AMQP gateway right to RabbitMQ.
+1. When a corresponding reply message is available via AMQP, the result will be available.
 
 ### Asynchronous Process
 Because the process is asynchronous the service method `TaskService.run` returns a `Future`. The examples shows how you can use timeouts.

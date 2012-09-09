@@ -6,7 +6,7 @@ For example, a web application should not generate and render a huge pdf documen
 *Note:* Currently, the Spring Integration configuration supports only a RabbitMQ/AMPQ variant. Feel free to provide an alternative. This could be easily done with Spring profiles.
 
 ## Getting Started
-The project is split into two single ones: The [deamon](task-deamon/README.md) and the [producer](task-producereamon/README.md).
+The project is split into two single ones: The [deamon](task-worker/tree/master/task-daemon) and the [producer](task-worker/tree/master/task-producer).
 
 ## License
 Copyright (c) 2012 Jan Philipp

@@ -1,5 +1,7 @@
 # Task Worker for Spring [![Build Status](https://secure.travis-ci.org/knalli/task-worker.png?branch=master)](http://travis-ci.org/knalli/task-worker)
 
+([../](back to home))
+
 The *Task Worker* is a _Spring Integration_ module usable for situations where the actual work should not be done in the "main" application.
 For example, a web application should not generate and render a huge pdf document itself because of performance issues with Java Heap and Java PermGen size issues.
 
@@ -42,10 +44,10 @@ First of all, this builds up a standard _context container_ in which are configu
 The service itself delegates the actual job to a dedicated task runner which decides _how_ the task will be done. Currently, there are only following tasks available: FopTaskImpl (FOP), ProcessTaskImpl (PROCESS) and PhantomJsTaskImpl (PHANTOMJS).
 
 In a nutshell:
-# A new message (so called a new job task) will be recieved by Spring Integration via the AMQP gateway.
-# The message will be transformed to an object and the module's service will be invoked.
-# A task depending on the type of job will be created and started. It result will be returned.
-# The result will be used as a reply message and sent back via AMPQ.
+1. A new message (so called a new job task) will be recieved by Spring Integration via the AMQP gateway.
+1. The message will be transformed to an object and the module's service will be invoked.
+1. A task depending on the type of job will be created and started. It result will be returned.
+1. The result will be used as a reply message and sent back via AMPQ.
 
 ## License
 Copyright (c) 2012 Jan Philipp
