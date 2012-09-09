@@ -1,6 +1,6 @@
 # Task Worker for Spring [![Build Status](https://secure.travis-ci.org/knalli/task-worker.png?branch=master)](http://travis-ci.org/knalli/task-worker)
 
-([../](back to home))
+([back to home](../))
 
 The *Task Worker* is a _Spring Integration_ module usable for situations where the actual work should not be done in the "main" application.
 For example, a web application should not generate and render a huge pdf document itself because of performance issues with Java Heap and Java PermGen size issues.
