@@ -31,7 +31,7 @@ public class MainPdfMultiPara {
 					workspace.addFile("xml", xmlFile.getAbsolutePath());
 					workspace.addFile("xsl", xslFile.getAbsolutePath());
 
-					workspace.addParam("userAgent.@baseUrl", "true");
+					workspace.addParam("userAgent.baseUrl", "@auto");
 
 					Job job = new Job();
 					job.setType("FOP");

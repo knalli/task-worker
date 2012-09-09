@@ -159,9 +159,9 @@ public class FopAdapter {
 			return;
 		}
 
-		if (params.containsKey("@baseUrl")) {
-			String baseUrl = params.get("@baseUrl");
-			if ("true".equals(baseUrl)) {
+		if (params.containsKey("baseUrl")) {
+			String baseUrl = params.get("baseUrl");
+			if ("@auto".equals(baseUrl)) {
 				agent.setBaseURL("file://" + xslFile.getParentFile().getAbsolutePath());
 			} else {
 				agent.setBaseURL(baseUrl);
@@ -171,7 +171,7 @@ public class FopAdapter {
 		if (params.containsKey("author")) {
 			agent.setAuthor(params.get("author"));
 		}
-		if (params.containsKey("@creationDate")) {
+		if ("@auto".equals(params.get("creationDate"))) {
 			agent.setCreationDate(new Date());
 		}
 		if (params.containsKey("creator")) {
