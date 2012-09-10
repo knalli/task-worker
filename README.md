@@ -5,7 +5,7 @@ For example, a web application should not generate and render a huge pdf documen
 
 *Note:* Currently, the Spring Integration configuration supports only a RabbitMQ/AMPQ variant. Feel free to provide an alternative. This could be easily done with Spring profiles.
 
-[![Overview](http://cloud.github.com/downloads/knalli/task-worker/overview.png)]
+![Overview](http://cloud.github.com/downloads/knalli/task-worker/overview.png)]
 
 ## Getting Started
 The project is split into two single ones: The [daemon](https://github.com/knalli/task-worker/tree/master/task-daemon) and the [producer](https://github.com/knalli/task-worker/tree/master/task-producer).
