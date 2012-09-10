@@ -22,7 +22,8 @@ First of all, this builds up a standard _context container_ in which are configu
 * and finally a service gateway which transforms each invocation into a message.
 
 In a nutshell:
-1. Invoking the service lets Spring Integration create a new message onto the channel.
+
+1. Invoking the service letsSpring Integration create a new message onto the channel.
 2. The message on this channel will be send via the AMQP gateway right to RabbitMQ.
 3. When a corresponding reply message is available via AMQP, the result will be available.
 
