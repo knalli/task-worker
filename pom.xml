@@ -37,6 +37,7 @@
     <modules>
         <module>task-producer</module>
         <module>task-daemon</module>
+        <module>task-amqp-producer</module>
     </modules>
 
     <properties>
