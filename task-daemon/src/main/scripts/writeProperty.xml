@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+    <target name="run">
+        <echo message="Property-File: ${props}, set ${key} = ${value}" />
+        <propertyfile file="${props}">
+            <entry key="${key}" operation="=" value="${value}" />
+        </propertyfile>
+    </target>
+</project>
