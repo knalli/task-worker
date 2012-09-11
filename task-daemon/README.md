@@ -54,11 +54,13 @@ First of all, this builds up a standard _context container_ in which are configu
 
 The service itself delegates the actual job to a dedicated task runner which decides _how_ the task will be done.
 Currently, there are only following tasks available:
+
 1. FopTaskImpl (FOP)
 2. ProcessTaskImpl (PROCESS) and
 3. PhantomJsTaskImpl (PHANTOMJS).
 
 In a nutshell:
+
 1. A new message (so called a new job task) will be recieved by Spring Integration via the AMQP gateway.
 2. The message will be transformed to an object and the module's service will be invoked.
 3. A task depending on the type of job will be created and started. It result will be returned.
