@@ -1,6 +1,6 @@
 # Task Worker for Spring [![Build Status](https://secure.travis-ci.org/knalli/task-worker.png?branch=master)](http://travis-ci.org/knalli/task-worker)
 
-The *Task Worker* is a _Spring Integration_ module usable for situations where the actual work should not be done in the "main" application.
+The *Task Worker* is a _Spring Integration_ ([Link](http://www.springsource.org/spring-integration)) module usable for situations where the actual work should not be done in the "main" application.
 For example, a web application should not generate and render a huge pdf document itself because of performance issues with Java Heap and Java PermGen size issues.
 
 *Note:* Currently, the Spring Integration configuration supports only a RabbitMQ/AMPQ variant. Feel free to provide an alternative. This could be easily done with Spring profiles.
