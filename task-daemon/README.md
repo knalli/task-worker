@@ -32,6 +32,8 @@ If you want to provide a custom properties file:
 java -jar target/task-worker-daemon.jar -Dconfig.file=configuration.properties
 ```
 
+### Properties
+
 The default properties are:
 ```properties
 # RabbitMQ defaults
@@ -40,8 +42,17 @@ rabbitmq.port: 5672
 rabbitmq.username: guest
 rabbitmq.password: guest
 rabbitmq.queue: task.queue
+rabbitmq.queue.ttl: 60000
 rabbitmq.virtualhost: /
 ```
+
+* `rabbitmq.host` defines the host or address of your RabbitMQ instance
+* `rabbitmq.port` defines the port of your RabbitMQ instance
+* `rabbitmq.username` defines the username of your RabbitMQ instance
+* `rabbitmq.password` defines the password of your RabbitMQ instance
+* `rabbitmq.queue` defines the queue on which the daemon will listen for new messages. The queue will be created if it does not exist.
+* `rabbitmq.queue.ttl` defines the time-to-live of the queue. All incoming and outgoing messages will be flagged. The value is in milliseconds.
+* `rabbitmq.virtualhost` defines a virtualhost of your RabbitMQ instance.
 
 ## How It Works
 This module uses the _Spring Framework 3.1_ and _Spring Integration 2.1_ for a context container and the communication with a message broker.
