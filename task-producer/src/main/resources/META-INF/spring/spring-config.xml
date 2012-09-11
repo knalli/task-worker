@@ -11,7 +11,14 @@
 
     <rabbit:connection-factory id="connectionFactory" channel-cache-size="10"/>
     <rabbit:admin connection-factory="connectionFactory"/>
-    <rabbit:queue name="task.queue"/>
+    <rabbit:queue name="task.queue">
+        <rabbit:queue-arguments>
+            <!-- Attention if you want to declare mixed value types: https://jira.springsource.org/browse/AMQP-198 -->
+            <entry key="x-message-ttl">
+                <value type="java.lang.Long">60000</value>
+            </entry>
+        </rabbit:queue-arguments>
+    </rabbit:queue>
 
     <int:channel id="taskRequestChannel"/>
     <int:channel id="taskRequestChannelJson"/>

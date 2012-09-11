@@ -48,7 +48,14 @@
                                password="${rabbitmq.password}" virtual-host="${rabbitmq.virtualhost}"/>
     <rabbit:admin connection-factory="connectionFactory"/>
 
-    <rabbit:queue name="${rabbitmq.queue}"/>
+    <rabbit:queue name="${rabbitmq.queue}" auto-delete="false" durable="true">
+        <rabbit:queue-arguments>
+            <!-- Attention if you want to declare mixed value types: https://jira.springsource.org/browse/AMQP-198 -->
+            <entry key="x-message-ttl">
+                <value type="java.lang.Long">${rabbitmq.queue.ttl}</value>
+            </entry>
+        </rabbit:queue-arguments>
+    </rabbit:queue>
 
     <int-amqp:inbound-gateway connection-factory="connectionFactory" request-channel="taskRequestChannelJson"
                               reply-channel="taskReplyChannelJson" error-channel="errorChannel"
