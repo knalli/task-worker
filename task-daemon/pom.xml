@@ -282,7 +282,7 @@
                                 </goals>
                                 <configuration>
                                     <target>
-                                        <ant antfile="${basedir}/src/main/scripts/writeProperty.xml">
+                                        <ant antfile="${basedir}/src/build/scripts/writeProperty.xml">
                                             <property name="props" location="${basedir}/src/main/resources/config.properties" />
                                             <property name="key" value="profile" />
                                             <property name="value" value="PRODUCTION" />
