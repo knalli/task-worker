@@ -44,6 +44,14 @@ rabbitmq.password: guest
 rabbitmq.queue: task.queue
 rabbitmq.queue.ttl: 60000
 rabbitmq.virtualhost: /
+
+# JavaMailSender defaults
+mailsender.enabled: false
+mailsender.host:
+mailsender.port:
+mailsender.username:
+mailsender.password:
+mailsender.properties:
 ```
 
 * `rabbitmq.host` defines the host or address of your RabbitMQ instance
@@ -53,6 +61,12 @@ rabbitmq.virtualhost: /
 * `rabbitmq.queue` defines the queue on which the daemon will listen for new messages. The queue will be created if it does not exist.
 * `rabbitmq.queue.ttl` defines the time-to-live of the queue. All incoming and outgoing messages will be flagged. The value is in milliseconds.
 * `rabbitmq.virtualhost` defines a virtualhost of your RabbitMQ instance.
+* `mailsender.enabled` defines if mailing is active. Read: If and only if this is `true` the following configuration options will be applied to the internal `JavaMailSender`.
+* `mailsender.host` defines the (SMTP) host
+* `mailsender.port` defines the (SMTP) port
+* `mailsender.username` defines the user name
+* `mailsender.password` defines the user password
+* `mailsender.properties` defines a _file path_ of a properties file used for additional _javamail properties_
 
 ## How It Works
 This module uses the _Spring Framework 3.1_ and _Spring Integration 2.1_ for a context container and the communication with a message broker.
@@ -66,9 +80,10 @@ First of all, this builds up a standard _context container_ in which are configu
 The service itself delegates the actual job to a dedicated task runner which decides _how_ the task will be done.
 Currently, there are only following tasks available:
 
-1. FopTaskImpl (FOP)
-2. ProcessTaskImpl (PROCESS) and
-3. PhantomJsTaskImpl (PHANTOMJS).
+1. FopTaskImpl (FOP),
+2. ProcessTaskImpl (PROCESS),
+3. PhantomJsTaskImpl (PHANTOMJS),
+4. MailSendTaskImpl (MAIL)
 
 In a nutshell:
 
