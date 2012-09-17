@@ -2,3 +2,4 @@
 task-daemon/target
 task-producer/target
 *.iml
+private-config.*

@@ -12,6 +12,8 @@ public enum TaskType {
 
 	PROCESS,
 
-	PHANTOMJS
+	PHANTOMJS,
+
+	MAIL
 
 }

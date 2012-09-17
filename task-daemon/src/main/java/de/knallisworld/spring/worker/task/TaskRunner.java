@@ -92,6 +92,9 @@ public class TaskRunner {
 			case PHANTOMJS:
 				task = new PhantomJsTaskImpl(ctx, workspace);
 				break;
+			case MAIL:
+				task = new MailSendTaskImpl(ctx, workspace);
+				break;
 		}
 		return task;
 	}

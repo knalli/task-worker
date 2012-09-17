@@ -283,10 +283,11 @@
                                 <configuration>
                                     <target>
                                         <ant antfile="${basedir}/src/build/scripts/writeProperty.xml">
-                                            <property name="props" location="${basedir}/src/main/resources/config.properties" />
-                                            <property name="key" value="profile" />
-                                            <property name="value" value="PRODUCTION" />
-                                            <target name="run" />
+                                            <property name="props"
+                                                      location="${basedir}/src/main/resources/config.properties"/>
+                                            <property name="key" value="profile"/>
+                                            <property name="value" value="PRODUCTION"/>
+                                            <target name="run"/>
                                         </ant>
                                     </target>
                                 </configuration>
@@ -337,6 +338,19 @@
                     <groupId>org.apache.avalon.framework</groupId>
                     <artifactId>avalon-framework-api</artifactId>
                     <version>4.3.1</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>with-mail</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>javax.mail</groupId>
+                    <artifactId>mail</artifactId>
+                    <version>1.4.4</version>
                 </dependency>
             </dependencies>
         </profile>
