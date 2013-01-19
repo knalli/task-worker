@@ -13,7 +13,7 @@ This is an example of a  *Task Worker Producer* which sends messages to the queu
 In order to get startet, you have to install a suitable message broker. Since this project supports only RabbitMQ at this time, you have to install and configure it on your own (see http://www.rabbitmq.com/).
 
 ## How It Works
-This module uses the _Spring Framework 3.1_ and _Spring Integration 2.1_ for a own context and the communication with a message browker.
+This module uses the _Spring Framework 3.1_ and _Spring Integration 2.1_ for an own context and the communication with a message broker.
 
 First of all, this builds up a standard _context container_ in which are configured following beans:
 * a connection factory (currently RabbitMQ),
