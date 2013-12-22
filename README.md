@@ -16,3 +16,6 @@ Licensed under the MIT licenses.
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality.
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/knalli/task-worker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
